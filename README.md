@@ -1,2 +1,2 @@
-# LifeSteps
-LifeSteps is a static website designed to help individuals organize and track essential preparations for major life events like engagement, marriage, and setting up a new home. Built with HTML5, CSS3, Bootstrap, and JavaScript, it offers a simple, user-friendly experience in Arabic.
+# خطوات الحياة
+خطوات الحياة هو موقع ثابت يساعد الأفراد على تنظيم وتتبع التحضيرات الأساسية للفعاليات الكبرى في الحياة مثل الخطبة، الزواج، وتجهيز المنزل الجديد. تم بناء الموقع باستخدام HTML5، CSS3، Bootstrap، وJavaScript ليقدم تجربة سهلة الاستخدام بالكامل باللغة العربية.
