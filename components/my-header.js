@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="${base}/pages/engagement.html">خطبة</a>
+                  <a class="nav-link" href="${base}/pages/engagement.html">الخطوبة</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="${base}/pages/home.html">تجهيزات المنزل</a>
