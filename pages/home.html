@@ -8,27 +8,51 @@
     <title>رحلة الزواج - تجهيزات المنزل</title>
     <link rel="icon" type="image/x-icon" href="../favicon.png">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/home.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+    <link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
     <script src="../components/my-header.js" defer></script>
     <script src="../components/my-footer.js" defer></script>
 </head>
 <body>
     <my-header></my-header>
 
-    <main>
-        <div class="container mt-5">
-            <img src="../assets/images/logo-128.png" alt="logo" class="mx-auto d-block" />
-            <h1 class="text-center mb-3">أهلاً وسهلاً بكم في موقع رحلة الزواج</h1>
-            <p class="text-center">
-                سيساعدك هذا الموقع على حساب تكاليف الزواج بدءاً من الخطوبة وتجهيز المنزل حتى تكاليف العرس، مع امكانية عمل ملخص لكل التفاصيل في ملف اكسل
-            </p>
+    <main class="py-4">
+        <div class="container-fluid">
+            <h2 class="mb-4">تكاليف تجهيز المنزل</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle" id="homeTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الوصف</th>
+                            <th>السعر</th>
+                            <th>العملة</th>
+                            <th>تفعيل</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="homeTableBody"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                <div id="homeTotal" class="d-flex gap-4"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <button class="btn btn-primary" id="addHomeRow">إضافة صف</button>
         </div>
     </main>
 
     <my-footer></my-footer>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/home.js"></script>
 </body>
 </html>
