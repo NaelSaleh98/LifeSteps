@@ -24,7 +24,7 @@
                   <a class="nav-link" href="${base}/pages/home.html">تجهيزات المنزل</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="${base}/pages/marriage.html">زواج</a>
+                  <a class="nav-link" href="${base}/pages/marriage.html">الزواج</a>
                 </li>
               </ul>
             </div>
