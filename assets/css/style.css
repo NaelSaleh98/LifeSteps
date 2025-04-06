@@ -18,3 +18,16 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+/*Table*/
+.table-input {
+    min-width: 200px;
+}
+
+.table-input-number {
+    min-width: 100px;
+}
+
+.table-input-select {
+    min-width: 125px;
+}
