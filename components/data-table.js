@@ -105,11 +105,11 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
 
         const row = $(`
           <tr data-row-id="${rowId}">
-            <td><input type="text" class="form-control name" value="${name}"></td>
-            <td><input type="text" class="form-control description" value="${description}"></td>
-            <td><input type="number" class="form-control price" value="${price}" step="0.1" min="0"></td>
+            <td><input type="text" class="form-control name table-input" value="${name}"></td>
+            <td><input type="text" class="form-control description table-input" value="${description}"></td>
+            <td><input type="number" class="form-control price table-input-number" value="${price}" step="0.1" min="0"></td>
             <td>
-              <select class="form-select currency">
+              <select class="form-select currency table-input-select">
                 ${currencies.map(c => `<option value="${c}" ${currency === c ? 'selected' : ''}>${c}</option>`).join('')}
               </select>
             </td>
