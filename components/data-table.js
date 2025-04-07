@@ -22,7 +22,81 @@ const presets = {
     ]
 };
 
-function setupTableManager({ tableBodyId, totalDivId, addButtonId, predefinedData = [] }) {
+class DataTableComponent extends HTMLElement {
+    connectedCallback() {
+        const title = this.getAttribute('title') || 'جدول';
+        const tableId = this.getAttribute('table-id') || `table-${Date.now()}`;
+        const bodyId = this.getAttribute('body-id') || `${tableId}-body`;
+        const totalId = this.getAttribute('total-id') || `${tableId}-total`;
+        const addBtnId = this.getAttribute('add-btn-id') || `${tableId}-add`;
+        const saveBtnId = this.getAttribute('save-btn-id') || `${tableId}-save`;
+        const clearBtnId = this.getAttribute('clear-btn-id') || `${tableId}-clear`;
+        const preset = this.getAttribute('preset');
+
+        this.innerHTML = `
+            <div class="container-fluid mb-5">
+                <h2 class="mb-4">${title}</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle" id="${tableId}">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>الاسم</th>
+                                <th>الوصف</th>
+                                <th>السعر</th>
+                                <th>العملة</th>
+                                <th>تفعيل</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="${bodyId}"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7">
+                                    <div id="${totalId}" class="d-flex gap-4"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <button class="btn btn-primary" id="${addBtnId}">إضافة صف</button>
+                <button class="btn btn-success" id="${saveBtnId}">حفظ <i class="fa-solid fa-floppy-disk"></i></button>
+                <button class="btn btn-danger" id="${clearBtnId}">حذف <i class="fa-solid fa-trash"></i></button>
+            </div>
+            <div class="toast-container position-fixed bottom-1 end-0 p-3" style="z-index: 1100">
+              <div id="saveToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                  <div class="toast-body">
+                    ✅ تم حفظ البيانات بنجاح!
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="إغلاق"></button>
+                </div>
+              </div>
+            </div>
+            <div class="toast-container position-fixed bottom-1 end-0 p-3" style="z-index: 1100">
+              <div id="clearToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                  <div class="toast-body">
+                    تم حذف بياناتك، واستعادة البيانات الافتراضية!
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="إغلاق"></button>
+                </div>
+              </div>
+            </div>
+        `;
+
+        setupTableManager({
+            tableBodyId: bodyId,
+            totalDivId: totalId,
+            addButtonId: addBtnId,
+            saveButtonId: saveBtnId,
+            clearButtonId: clearBtnId,
+            preset: preset,
+            tableId: tableId
+        });
+    }
+}
+
+function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId, clearButtonId, preset, tableId }) {
     let rowCount = 0;
 
     function createRow(data = {}) {
@@ -71,56 +145,43 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, predefinedDat
         }
     }
 
-    $(`#${addButtonId}`).on('click', () => createRow());
-    predefinedData.forEach(createRow);
-}
-class DataTableComponent extends HTMLElement {
-    connectedCallback() {
-        const title = this.getAttribute('title') || 'جدول';
-        const tableId = this.getAttribute('table-id') || `table-${Date.now()}`;
-        const bodyId = this.getAttribute('body-id') || `${tableId}-body`;
-        const totalId = this.getAttribute('total-id') || `${tableId}-total`;
-        const addBtnId = this.getAttribute('add-btn-id') || `${tableId}-add`;
-        const preset = this.getAttribute('preset');
-
-        const data = presets[preset] || [];
-
-        this.innerHTML = `
-            <div class="container-fluid mb-5">
-                <h2 class="mb-4">${title}</h2>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle" id="${tableId}">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>الاسم</th>
-                                <th>الوصف</th>
-                                <th>السعر</th>
-                                <th>العملة</th>
-                                <th>تفعيل</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="${bodyId}"></tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="7">
-                                    <div id="${totalId}" class="d-flex gap-4"></div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <button class="btn btn-primary" id="${addBtnId}">إضافة صف</button>
-            </div>
-        `;
-
-        setupTableManager({
-            tableBodyId: bodyId,
-            totalDivId: totalId,
-            addButtonId: addBtnId,
-            predefinedData: data
+    function saveData() {
+        const data = [];
+        $(`#${tableBodyId} tr`).each(function () {
+            const row = $(this);
+            const name = row.find('.name').val();
+            const description = row.find('.description').val();
+            const price = parseFloat(row.find('.price').val()) || 0;
+            const currency = row.find('.currency').val();
+            const enable = row.find('.enable').is(':checked');
+            data.push({ name, description, price, currency, enable });
         });
+        localStorage.setItem(`tableData-${tableId}`, JSON.stringify(data));
+
+        const toast = new bootstrap.Toast(document.getElementById('saveToast'));
+        toast.show();
     }
+
+    function clearData() {
+        // Retrieve saved data from local storage
+        const data = presets[preset] || [];
+        $(`#${tableBodyId}`).empty();
+        localStorage.removeItem(`tableData-${tableId}`);
+        data.forEach(createRow);
+
+
+        const toast = new bootstrap.Toast(document.getElementById('clearToast'));
+        toast.show();
+    }
+
+    // Retrieve saved data from local storage
+    const savedData = localStorage.getItem(`tableData-${tableId}`);
+    const data = savedData ? JSON.parse(savedData) : (presets[preset] || []);
+
+    $(`#${addButtonId}`).on('click', () => createRow());
+    $(`#${saveButtonId}`).on('click', saveData);
+    $(`#${clearButtonId}`).on('click', clearData);
+    data.forEach(createRow);
 }
 
 customElements.define('data-table', DataTableComponent);
