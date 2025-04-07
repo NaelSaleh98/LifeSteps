@@ -13,39 +13,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
     <link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
     <script src="../components/my-header.js" defer></script>
+    <script src="../components/data-table.js" defer></script>
     <script src="../components/my-footer.js" defer></script>
 </head>
 <body>
     <my-header></my-header>
 
     <main class="py-4">
-        <div class="container-fluid">
-            <h2 class="mb-4">تكاليف تجهيز المنزل</h2>
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle" id="homeTable">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>الاسم</th>
-                            <th>الوصف</th>
-                            <th>السعر</th>
-                            <th>العملة</th>
-                            <th>تفعيل</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="homeTableBody"></tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="7">
-                                <div id="homeTotal" class="d-flex gap-4"></div>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-
-            <button class="btn btn-primary" id="addHomeRow">إضافة صف</button>
-        </div>
+        <data-table title="تكاليف تجهيز المنزل"
+                    table-id="homeTable"
+                    body-id="homeTableBody"
+                    total-id="homeTotal"
+                    add-btn-id="addHomeRow"
+                    preset="home">
+        </data-table>
     </main>
 
     <my-footer></my-footer>
