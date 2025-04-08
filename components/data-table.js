@@ -2,23 +2,23 @@
 
 const presets = {
     engagement: [
-        { name: "حلوان قراءة الفاتحة", description: "حلويات شرقية حسب عدد الحضور", price: 200, currency: "شيكل", enable: true },
-        { name: "ضيافة الخطوبة", description: "شوكولاتة وعصائر أو كولا", price: 500, currency: "شيكل", enable: true },
-        { name: "حفلة الخطوبة", description: "حجز قاعة للنساء، ومجلس للرجال", price: 1000, currency: "شيكل", enable: false },
-        { name: "تجهيزات العروس", description: "فستان خطوبة، تسريحة شعر، مكياج", price: 1000, currency: "شيكل", enable: false },
-        { name: "المهر", description: "المقدم والمؤخر", price: 5000, currency: "دينار أردني", enable: true },
+        { name: "حلوان قراءة الفاتحة", description: "حلويات شرقية حسب عدد الحضور", price: 200, currency: "شيكل", status: "enabled" },
+        { name: "ضيافة الخطوبة", description: "شوكولاتة وعصائر أو كولا", price: 500, currency: "شيكل", status: "enabled" },
+        { name: "حفلة الخطوبة", description: "حجز قاعة للنساء، ومجلس للرجال", price: 1000, currency: "شيكل", status: "disabled" },
+        { name: "تجهيزات العروس", description: "فستان خطوبة، تسريحة شعر، مكياج", price: 1000, currency: "شيكل", status: "disabled" },
+        { name: "المهر", description: "المقدم والمؤخر", price: 5000, currency: "دينار أردني", status: "enabled" },
     ],
     home: [
-        { name: "شراء شقة", description: "شقة غير مشطبة", price: 50000, currency: "دينار أردني", enable: true },
-        { name: "شراء شقة", description: "شقة مشطبة", price: 75000, currency: "دينار أردني", enable: false },
-        { name: "تشطيب شقة", description: "جميع تشطيبات الشقة", price: 100000, currency: "شيكل", enable: true },
-        { name: "تأثيث الشقة", description: "أثاث المنزل وأدوات ومستلزمات", price: 30000, currency: "شيكل", enable: true },
+        { name: "شراء شقة", description: "شقة غير مشطبة", price: 50000, currency: "دينار أردني", status: "enabled" },
+        { name: "شراء شقة", description: "شقة مشطبة", price: 75000, currency: "دينار أردني", status: "disabled" },
+        { name: "تشطيب شقة", description: "جميع تشطيبات الشقة", price: 100000, currency: "شيكل", status: "enabled" },
+        { name: "تأثيث الشقة", description: "أثاث المنزل وأدوات ومستلزمات", price: 30000, currency: "شيكل", status: "enabled" },
     ],
     marriage: [
-        { name: "القاعة", description: "حجز قاعة وتوابعها", price: 5000, currency: "شيكل", enable: true },
-        { name: "تجيهزات العروس", description: "فستان، تسريحة ومكياج", price: 5000, currency: "شيكل", enable: true },
-        { name: "تجيهزات العريس", description: "بدلة وتوابعها", price: 1000, currency: "شيكل", enable: true },
-        { name: "ضيافة", description: "حلويات وعصائر", price: 700, currency: "شيكل", enable: true },
+        { name: "القاعة", description: "حجز قاعة وتوابعها", price: 5000, currency: "شيكل", status: "enabled" },
+        { name: "تجيهزات العروس", description: "فستان، تسريحة ومكياج", price: 5000, currency: "شيكل", status: "enabled" },
+        { name: "تجيهزات العريس", description: "بدلة وتوابعها", price: 1000, currency: "شيكل", status: "enabled" },
+        { name: "ضيافة", description: "حلويات وعصائر", price: 700, currency: "شيكل", status: "enabled" },
     ]
 };
 
@@ -44,7 +44,7 @@ class DataTableComponent extends HTMLElement {
                                 <th>الوصف</th>
                                 <th>السعر</th>
                                 <th>العملة</th>
-                                <th>تفعيل</th>
+                                <th>الحالة</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -101,7 +101,7 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
 
     function createRow(data = {}) {
         const rowId = `row-${tableBodyId}-${rowCount++}`;
-        const { name = "", description = "", price = "", currency = "شيكل", enable = false } = data;
+        const { name = "", description = "", price = "", currency = "شيكل", status = "enabled" } = data;
 
         const row = $(`
           <tr data-row-id="${rowId}">
@@ -113,7 +113,19 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
                 ${currencies.map(c => `<option value="${c}" ${currency === c ? 'selected' : ''}>${c}</option>`).join('')}
               </select>
             </td>
-            <td class="text-center"><input type="checkbox" class="form-check-input enable" ${enable ? 'checked' : ''}></td>
+            <td>
+              <select class="form-select status table-input-select">
+                <optgroup label="الحالة">
+                  <option value="enabled" ${status === "enabled" ? 'selected' : ''}>مفعلة</option>
+                  <option value="disabled" ${status === "disabled" ? 'selected' : ''}>معطلة</option>
+                </optgroup>
+                <optgroup label="الدفع">
+                  <option value="paid" ${status === "paid" ? 'selected' : ''}>مدفوعة</option>
+                  <option value="cheque" ${status === "cheque" ? 'selected' : ''}>شيك مؤجل</option>
+                  <option value="dept" ${status === "dept" ? 'selected' : ''}>دين</option>
+                </optgroup>
+              </select>
+            </td>
             <td class="text-center"><button class="btn btn-danger btn-sm remove-row"><i class="fa-regular fa-trash-can"></i></button></td>
           </tr>
         `);
@@ -132,7 +144,8 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
         const totals = {};
         $(`#${tableBodyId} tr`).each(function () {
             const row = $(this);
-            if (!row.find('.enable').is(':checked')) return;
+            const status = row.find('.status').val();
+            if (status !== "enabled") return;
             const currency = row.find('.currency').val();
             const price = parseFloat(row.find('.price').val()) || 0;
             totals[currency] = (totals[currency] || 0) + price;
@@ -153,8 +166,8 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
             const description = row.find('.description').val();
             const price = parseFloat(row.find('.price').val()) || 0;
             const currency = row.find('.currency').val();
-            const enable = row.find('.enable').is(':checked');
-            data.push({ name, description, price, currency, enable });
+            const status = row.find('.status').val();
+            data.push({ name, description, price, currency, status });
         });
         localStorage.setItem(`tableData-${tableId}`, JSON.stringify(data));
 
@@ -163,7 +176,6 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
     }
 
     function clearData() {
-        // Retrieve saved data from local storage
         const data = presets[preset] || [];
         $(`#${tableBodyId}`).empty();
         localStorage.removeItem(`tableData-${tableId}`);
