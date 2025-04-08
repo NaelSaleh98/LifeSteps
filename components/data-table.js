@@ -49,12 +49,7 @@ class DataTableComponent extends HTMLElement {
                             </tr>
                         </thead>
                         <tbody id="${bodyId}"></tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="7">
-                                    <div id="${totalId}" class="d-flex gap-4"></div>
-                                </td>
-                            </tr>
+                        <tfoot id="${totalId}">
                         </tfoot>
                     </table>
                 </div>
@@ -121,7 +116,7 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
                 </optgroup>
                 <optgroup label="الدفع">
                   <option value="paid" ${status === "paid" ? 'selected' : ''}>مدفوعة</option>
-                  <option value="cheque" ${status === "cheque" ? 'selected' : ''}>شيك مؤجل</option>
+                  <option value="cheque" ${status === "cheque" ? 'selected' : ''}>شيك</option>
                   <option value="dept" ${status === "dept" ? 'selected' : ''}>دين</option>
                 </optgroup>
               </select>
@@ -149,20 +144,47 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
     }
 
     function calculateTotals() {
-        const totals = {};
+        const totals = {
+            enabled: {},
+            paid: {},
+            cheque: {},
+            dept: {}
+        };
+
         $(`#${tableBodyId} tr`).each(function () {
             const row = $(this);
             const status = row.find('.status').val();
-            if (status !== "enabled") return;
             const currency = row.find('.currency').val();
             const price = parseFloat(row.find('.price').val()) || 0;
-            totals[currency] = (totals[currency] || 0) + price;
+
+            if (!totals[status]) return;
+            totals[status][currency] = (totals[status][currency] || 0) + price;
         });
 
-        const totalsDiv = $(`#${totalDivId}`);
-        totalsDiv.empty();
-        for (const [currency, total] of Object.entries(totals)) {
-            totalsDiv.append(`<div class="currency-total">${total.toFixed(0)} ${currency}</div>`);
+        const totalsTfoot = $(`#${totalDivId}`).closest('tfoot');
+        totalsTfoot.empty(); // Clear existing totals
+
+        // Render totals for each status
+        const statusLabels = {
+            enabled: "المستحقات",
+            paid: "المدفوعات",
+            cheque: "شيكات",
+            dept: "الديون"
+        };
+
+        for (const [status, currencies] of Object.entries(totals)) {
+            if (Object.keys(currencies).length === 0) continue;
+
+            const statusRow = $('<tr></tr>');
+            const statusCell = $(`<td><strong>${statusLabels[status]}:</strong></td>`);
+            const totalsCell = $('<td></td>');
+
+            for (const [currency, total] of Object.entries(currencies)) {
+                totalsCell.append(`<div class="currency-total">${total.toFixed(0)} ${currency}</div>`);
+            }
+
+            statusRow.append(statusCell).append(totalsCell).append('<td colspan="4"></td>');
+            totalsTfoot.append(statusRow);
         }
     }
 
@@ -209,15 +231,12 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
                 break;
             case "paid":
                 row.addClass('table-success');
-                row.find('input, select').not('.status').prop('disabled', true);
                 break;
             case "cheque":
                 row.addClass('table-warning');
-                row.find('input, select').not('.status').prop('disabled', true);
                 break;
             case "dept":
                 row.addClass('table-danger');
-                row.find('input, select').not('.status').prop('disabled', true);
                 break;
         }
     }
