@@ -266,16 +266,6 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
         row.find('.remove-row').prop('disabled', false);
         row.attr('data-locked', locked);
 
-        if (locked) {
-            row.addClass('table-locked');
-            row.find('input, select').prop('disabled', true);
-            row.find('.remove-row').prop('disabled', true);
-            row.find('.lock-row').html('<i class="fa-solid fa-lock-open"></i>');
-            return;
-        }
-
-        row.find('.lock-row').html('<i class="fa-solid fa-lock"></i>');
-
         switch (status) {
             case "enabled":
                 // Keep the row as it is
@@ -294,6 +284,16 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
                 row.addClass('table-danger');
                 break;
         }
+
+        if (locked) {
+            row.addClass('table-locked');
+            row.find('input, select').prop('disabled', true);
+            row.find('.remove-row').prop('disabled', true);
+            row.find('.lock-row').html('<i class="fa-solid fa-lock-open"></i>');
+            return;
+        }
+
+        row.find('.lock-row').html('<i class="fa-solid fa-lock"></i>');
     }
 
     // Retrieve saved data from local storage
