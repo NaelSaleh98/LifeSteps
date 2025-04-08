@@ -213,6 +213,8 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
         });
         localStorage.setItem(`tableData-${tableId}`, JSON.stringify(data));
 
+        calculateTotals();
+
         const toast = new bootstrap.Toast(document.getElementById('saveToast'));
         toast.show();
     }
@@ -250,6 +252,8 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
 
         // Update local storage with locked rows and preset data
         localStorage.setItem(`tableData-${tableId}`, JSON.stringify(updatedData));
+
+        calculateTotals();
 
         const toast = new bootstrap.Toast(document.getElementById('clearToast'));
         toast.show();
