@@ -150,14 +150,6 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
             updateRowStyle(row, row.find('.status').val(), isLocked);
         });
 
-        $('.sortable').on('click', function () {
-            const sortKey = $(this).data('sort-key');
-            const ascending = !$(this).data('ascending');
-            $(this).data('ascending', ascending);
-
-            sortTable(sortKey, ascending);
-        });
-
         $(`#${tableBodyId}`).append(row);
         calculateTotals();
     }
@@ -306,19 +298,37 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
 
     function sortTable(sortKey, ascending = true) {
         const rows = $(`#${tableBodyId} tr`).get();
-        rows.sort((a, b) => {
-            const valA = $(a).find(`.${sortKey}`).val() || $(a).find(`.${sortKey}`).text();
-            const valB = $(b).find(`.${sortKey}`).val() || $(b).find(`.${sortKey}`).text();
 
+        rows.sort((a, b) => {
+            let valA = $(a).find(`.${sortKey}`).val() || $(a).find(`.${sortKey}`).text();
+            let valB = $(b).find(`.${sortKey}`).val() || $(b).find(`.${sortKey}`).text();
+
+            // Handle numeric sorting for price
             if (sortKey === 'price') {
+                valA = parseFloat(valA) || 0;
+                valB = parseFloat(valB) || 0;
                 return ascending ? valA - valB : valB - valA;
             }
 
+            // Handle string sorting for other keys
+            valA = valA.toString().trim();
+            valB = valB.toString().trim();
             return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
         });
 
-        $(`#${tableBodyId}`).append(rows);
+        // Append sorted rows back to the table
+        $(`#${tableBodyId}`).empty().append(rows);
     }
+
+    $('.sortable').on('click', function () {
+        const sortKey = $(this).data('sort-key');
+        const ascending = !$(this).data('ascending');
+        $(this).data('ascending', ascending);
+
+        console.log(`Sorting by ${sortKey}, ascending: ${ascending}`);
+
+        sortTable(sortKey, ascending);
+    });
 
     // Retrieve saved data from local storage
     const savedData = localStorage.getItem(`tableData-${tableId}`);
