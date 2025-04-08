@@ -31,3 +31,8 @@ footer {
 .table-input-select {
     min-width: 125px;
 }
+
+.table-locked {
+    background-color: #f8d7da;
+    opacity: 0.7;
+}

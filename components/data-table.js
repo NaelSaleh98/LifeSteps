@@ -2,23 +2,23 @@
 
 const presets = {
     engagement: [
-        { name: "حلوان قراءة الفاتحة", description: "حلويات شرقية حسب عدد الحضور", price: 200, currency: "شيكل", status: "enabled" },
-        { name: "ضيافة الخطوبة", description: "شوكولاتة وعصائر أو كولا", price: 500, currency: "شيكل", status: "enabled" },
-        { name: "حفلة الخطوبة", description: "حجز قاعة للنساء، ومجلس للرجال", price: 1000, currency: "شيكل", status: "disabled" },
-        { name: "تجهيزات العروس", description: "فستان خطوبة، تسريحة شعر، مكياج", price: 1000, currency: "شيكل", status: "disabled" },
-        { name: "المهر", description: "المقدم والمؤخر", price: 5000, currency: "دينار أردني", status: "enabled" },
+        { name: "حلوان قراءة الفاتحة", description: "حلويات شرقية حسب عدد الحضور", price: 200, currency: "شيكل", status: "enabled", locked: false },
+        { name: "ضيافة الخطوبة", description: "شوكولاتة وعصائر أو كولا", price: 500, currency: "شيكل", status: "enabled", locked: false },
+        { name: "حفلة الخطوبة", description: "حجز قاعة للنساء، ومجلس للرجال", price: 1000, currency: "شيكل", status: "disabled", locked: false },
+        { name: "تجهيزات العروس", description: "فستان خطوبة، تسريحة شعر، مكياج", price: 1000, currency: "شيكل", status: "disabled", locked: false },
+        { name: "المهر", description: "المقدم والمؤخر", price: 5000, currency: "دينار أردني", status: "enabled", locked: false },
     ],
     home: [
-        { name: "شراء شقة", description: "شقة غير مشطبة", price: 50000, currency: "دينار أردني", status: "enabled" },
-        { name: "شراء شقة", description: "شقة مشطبة", price: 75000, currency: "دينار أردني", status: "disabled" },
-        { name: "تشطيب شقة", description: "جميع تشطيبات الشقة", price: 100000, currency: "شيكل", status: "enabled" },
-        { name: "تأثيث الشقة", description: "أثاث المنزل وأدوات ومستلزمات", price: 30000, currency: "شيكل", status: "enabled" },
+        { name: "شراء شقة", description: "شقة غير مشطبة", price: 50000, currency: "دينار أردني", status: "enabled", locked: false },
+        { name: "شراء شقة", description: "شقة مشطبة", price: 75000, currency: "دينار أردني", status: "disabled", locked: false },
+        { name: "تشطيب شقة", description: "جميع تشطيبات الشقة", price: 100000, currency: "شيكل", status: "enabled", locked: false },
+        { name: "تأثيث الشقة", description: "أثاث المنزل وأدوات ومستلزمات", price: 30000, currency: "شيكل", status: "enabled", locked: false },
     ],
     marriage: [
-        { name: "القاعة", description: "حجز قاعة وتوابعها", price: 5000, currency: "شيكل", status: "enabled" },
-        { name: "تجيهزات العروس", description: "فستان، تسريحة ومكياج", price: 5000, currency: "شيكل", status: "enabled" },
-        { name: "تجيهزات العريس", description: "بدلة وتوابعها", price: 1000, currency: "شيكل", status: "enabled" },
-        { name: "ضيافة", description: "حلويات وعصائر", price: 700, currency: "شيكل", status: "enabled" },
+        { name: "القاعة", description: "حجز قاعة وتوابعها", price: 5000, currency: "شيكل", status: "enabled", locked: false },
+        { name: "تجيهزات العروس", description: "فستان، تسريحة ومكياج", price: 5000, currency: "شيكل", status: "enabled", locked: false },
+        { name: "تجيهزات العريس", description: "بدلة وتوابعها", price: 1000, currency: "شيكل", status: "enabled", locked: false },
+        { name: "ضيافة", description: "حلويات وعصائر", price: 700, currency: "شيكل", status: "enabled", locked: false },
     ]
 };
 
@@ -57,7 +57,7 @@ class DataTableComponent extends HTMLElement {
                 <button class="btn btn-success" id="${saveBtnId}">حفظ <i class="fa-solid fa-floppy-disk"></i></button>
                 <button class="btn btn-danger" id="${clearBtnId}">حذف <i class="fa-solid fa-trash"></i></button>
             </div>
-            <div class="toast-container position-fixed bottom-1 end-0 p-3" style="z-index: 1100">
+            <div class="toast-container position-fixed top-0 start-0 p-3" style="z-index: 1100">
               <div id="saveToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                   <div class="toast-body">
@@ -67,11 +67,11 @@ class DataTableComponent extends HTMLElement {
                 </div>
               </div>
             </div>
-            <div class="toast-container position-fixed bottom-1 end-0 p-3" style="z-index: 1100">
+            <div class="toast-container position-fixed top-0 start-0 p-3" style="z-index: 1100">
               <div id="clearToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                   <div class="toast-body">
-                    تم حذف بياناتك، واستعادة البيانات الافتراضية!
+                    تم حذف الصفوف غير المقفلة!
                   </div>
                   <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="إغلاق"></button>
                 </div>
@@ -96,7 +96,7 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
 
     function createRow(data = {}) {
         const rowId = `row-${tableBodyId}-${rowCount++}`;
-        const { name = "", description = "", price = "", currency = "شيكل", status = "enabled" } = data;
+        const { name = "", description = "", price = "", currency = "شيكل", status = "enabled", locked = false } = data;
 
         const row = $(`
           <tr data-row-id="${rowId}">
@@ -121,22 +121,33 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
                 </optgroup>
               </select>
             </td>
-            <td class="text-center"><button class="btn btn-danger btn-sm remove-row"><i class="fa-regular fa-trash-can"></i></button></td>
+            <td class="text-center">
+                <button class="btn btn-secondary btn-sm lock-row"><i class="fa-solid fa-lock"></i></button>
+                <button class="btn btn-danger btn-sm remove-row"><i class="fa-regular fa-trash-can"></i></button>
+            </td>
           </tr>
         `);
 
-        updateRowStyle(row, status);
+        updateRowStyle(row, status, locked);
 
         row.find('.status').on('change', function () {
             const newStatus = $(this).val();
-            updateRowStyle(row, newStatus);
+            updateRowStyle(row, newStatus, row.data('locked'));
             calculateTotals();
         });
 
         row.find('input, select').on('change input', calculateTotals);
+
         row.find('.remove-row').on('click', function () {
             row.remove();
             calculateTotals();
+        });
+
+        row.find('.lock-row').on('click', function () {
+            const isLocked = !row.data('locked');
+            row.data('locked', isLocked);
+            row.attr('data-locked', isLocked); 
+            updateRowStyle(row, row.find('.status').val(), isLocked);
         });
 
         $(`#${tableBodyId}`).append(row);
@@ -197,7 +208,8 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
             const price = parseFloat(row.find('.price').val()) || 0;
             const currency = row.find('.currency').val();
             const status = row.find('.status').val();
-            data.push({ name, description, price, currency, status });
+            const locked = row.attr('data-locked') === 'true';
+            data.push({ name, description, price, currency, status, locked });
         });
         localStorage.setItem(`tableData-${tableId}`, JSON.stringify(data));
 
@@ -207,19 +219,58 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
 
     function clearData() {
         const data = presets[preset] || [];
-        $(`#${tableBodyId}`).empty();
-        localStorage.removeItem(`tableData-${tableId}`);
-        data.forEach(createRow);
+        const lockedRows = [];
 
+        // Iterate over all rows and remove only unlocked rows
+        $(`#${tableBodyId} tr`).each(function () {
+            const row = $(this);
+            const isLocked = row.data('locked') || false;
+            if (isLocked) {
+                // Collect locked rows to preserve them
+                const name = row.find('.name').val();
+                const description = row.find('.description').val();
+                const price = parseFloat(row.find('.price').val()) || 0;
+                const currency = row.find('.currency').val();
+                const status = row.find('.status').val();
+                lockedRows.push({ name, description, price, currency, status, locked: true });
+            } else {
+                row.remove(); // Remove unlocked rows
+            }
+        });
+
+        const updatedData = [];
+
+        if (lockedRows.length > 0) {
+            updatedData.push(...lockedRows);
+        } else {
+            // Add preset rows (if any) to the table
+            data.forEach(createRow);
+            updatedData.push(...data);
+        }
+
+        // Update local storage with locked rows and preset data
+        localStorage.setItem(`tableData-${tableId}`, JSON.stringify(updatedData));
 
         const toast = new bootstrap.Toast(document.getElementById('clearToast'));
         toast.show();
     }
 
-    function updateRowStyle(row, status) {
+    function updateRowStyle(row, status, locked = false) {
         // Reset row styles
-        row.removeClass('table-secondary table-success table-warning table-danger');
+        row.removeClass('table-secondary table-success table-warning table-danger table-locked');
         row.find('input, select').prop('disabled', false).css('opacity', 1);
+        row.find('.remove-row').prop('disabled', false);
+        row.attr('data-locked', locked);
+
+        if (locked) {
+            row.addClass('table-locked');
+            row.find('input, select').prop('disabled', true);
+            row.find('.remove-row').prop('disabled', true);
+            row.find('.lock-row').html('<i class="fa-solid fa-lock-open"></i>');
+            return;
+        }
+
+        row.find('.lock-row').html('<i class="fa-solid fa-lock"></i>');
 
         switch (status) {
             case "enabled":
