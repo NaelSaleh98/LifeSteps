@@ -24,7 +24,7 @@ const presets = {
 
 class DataTableComponent extends HTMLElement {
     connectedCallback() {
-        const title = this.getAttribute('title') || 'جدول';
+        const title = this.getAttribute('table-title') || 'جدول';
         const tableId = this.getAttribute('table-id') || `table-${Date.now()}`;
         const bodyId = this.getAttribute('body-id') || `${tableId}-body`;
         const totalId = this.getAttribute('total-id') || `${tableId}-total`;
