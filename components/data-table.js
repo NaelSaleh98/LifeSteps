@@ -42,9 +42,9 @@ class DataTableComponent extends HTMLElement {
                             <tr>
                                 <th>الاسم</th>
                                 <th>الوصف</th>
-                                <th>السعر</th>
-                                <th>العملة</th>
-                                <th>الحالة</th>
+                                <th class="sortable" data-sort-key="price">السعر <i class="fa-solid fa-sort"></i></th>
+                                <th class="sortable" data-sort-key="currency">العملة <i class="fa-solid fa-sort"></i></th>
+                                <th class="sortable" data-sort-key="status">الحالة <i class="fa-solid fa-sort"></i></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -148,6 +148,14 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
             row.data('locked', isLocked);
             row.attr('data-locked', isLocked); 
             updateRowStyle(row, row.find('.status').val(), isLocked);
+        });
+
+        $('.sortable').on('click', function () {
+            const sortKey = $(this).data('sort-key');
+            const ascending = !$(this).data('ascending');
+            $(this).data('ascending', ascending);
+
+            sortTable(sortKey, ascending);
         });
 
         $(`#${tableBodyId}`).append(row);
@@ -294,6 +302,22 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
         }
 
         row.find('.lock-row').html('<i class="fa-solid fa-lock"></i>');
+    }
+
+    function sortTable(sortKey, ascending = true) {
+        const rows = $(`#${tableBodyId} tr`).get();
+        rows.sort((a, b) => {
+            const valA = $(a).find(`.${sortKey}`).val() || $(a).find(`.${sortKey}`).text();
+            const valB = $(b).find(`.${sortKey}`).val() || $(b).find(`.${sortKey}`).text();
+
+            if (sortKey === 'price') {
+                return ascending ? valA - valB : valB - valA;
+            }
+
+            return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+        });
+
+        $(`#${tableBodyId}`).append(rows);
     }
 
     // Retrieve saved data from local storage
