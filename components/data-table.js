@@ -42,9 +42,9 @@ class DataTableComponent extends HTMLElement {
                             <tr>
                                 <th>الاسم</th>
                                 <th>الوصف</th>
-                                <th class="sortable" data-sort-key="price">السعر <i class="fa-solid fa-sort"></i></th>
-                                <th class="sortable" data-sort-key="currency">العملة <i class="fa-solid fa-sort"></i></th>
-                                <th class="sortable" data-sort-key="status">الحالة <i class="fa-solid fa-sort"></i></th>
+                                <th>السعر</th>
+                                <th>العملة</th>
+                                <th>الحالة</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -295,40 +295,6 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
 
         row.find('.lock-row').html('<i class="fa-solid fa-lock"></i>');
     }
-
-    function sortTable(sortKey, ascending = true) {
-        const rows = $(`#${tableBodyId} tr`).get();
-
-        rows.sort((a, b) => {
-            let valA = $(a).find(`.${sortKey}`).val() || $(a).find(`.${sortKey}`).text();
-            let valB = $(b).find(`.${sortKey}`).val() || $(b).find(`.${sortKey}`).text();
-
-            // Handle numeric sorting for price
-            if (sortKey === 'price') {
-                valA = parseFloat(valA) || 0;
-                valB = parseFloat(valB) || 0;
-                return ascending ? valA - valB : valB - valA;
-            }
-
-            // Handle string sorting for other keys
-            valA = valA.toString().trim();
-            valB = valB.toString().trim();
-            return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
-        });
-
-        // Append sorted rows back to the table
-        $(`#${tableBodyId}`).empty().append(rows);
-    }
-
-    $('.sortable').on('click', function () {
-        const sortKey = $(this).data('sort-key');
-        const ascending = !$(this).data('ascending');
-        $(this).data('ascending', ascending);
-
-        console.log(`Sorting by ${sortKey}, ascending: ${ascending}`);
-
-        sortTable(sortKey, ascending);
-    });
 
     // Retrieve saved data from local storage
     const savedData = localStorage.getItem(`tableData-${tableId}`);
