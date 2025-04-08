@@ -37,7 +37,7 @@ class DataTableComponent extends HTMLElement {
             <div class="container-fluid mb-5">
                 <h2 class="mb-4">${title}</h2>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover align-middle" id="${tableId}">
+                    <table class="table table-hover align-middle" id="${tableId}">
                         <thead class="table-dark">
                             <tr>
                                 <th>الاسم</th>
@@ -130,6 +130,14 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
           </tr>
         `);
 
+        updateRowStyle(row, status);
+
+        row.find('.status').on('change', function () {
+            const newStatus = $(this).val();
+            updateRowStyle(row, newStatus);
+            calculateTotals();
+        });
+
         row.find('input, select').on('change input', calculateTotals);
         row.find('.remove-row').on('click', function () {
             row.remove();
@@ -184,6 +192,34 @@ function setupTableManager({ tableBodyId, totalDivId, addButtonId, saveButtonId,
 
         const toast = new bootstrap.Toast(document.getElementById('clearToast'));
         toast.show();
+    }
+
+    function updateRowStyle(row, status) {
+        // Reset row styles
+        row.removeClass('table-secondary table-success table-warning table-danger');
+        row.find('input, select').prop('disabled', false).css('opacity', 1);
+
+        switch (status) {
+            case "enabled":
+                // Keep the row as it is
+                break;
+            case "disabled":
+                row.addClass('table-secondary');
+                row.find('input, select').not('.status').prop('disabled', true);
+                break;
+            case "paid":
+                row.addClass('table-success');
+                row.find('input, select').not('.status').prop('disabled', true);
+                break;
+            case "cheque":
+                row.addClass('table-warning');
+                row.find('input, select').not('.status').prop('disabled', true);
+                break;
+            case "dept":
+                row.addClass('table-danger');
+                row.find('input, select').not('.status').prop('disabled', true);
+                break;
+        }
     }
 
     // Retrieve saved data from local storage
