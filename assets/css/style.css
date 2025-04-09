@@ -1,4 +1,6 @@
-﻿html, body {
+﻿@import './variables.css';
+
+html, body {
     height: 100%;
     margin: 0;
 }
@@ -6,7 +8,7 @@
 body {
     display: flex;
     flex-direction: column;
-    font-family: 'Cairo', sans-serif !important;
+    font-family: var(--arabic-font-family) !important;
 }
 
 main {

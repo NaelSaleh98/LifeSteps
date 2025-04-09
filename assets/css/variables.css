@@ -1,0 +1,10 @@
+﻿/* variables.css */
+
+/* Color Palette */
+:root {
+    --blue-color: #2F3C7E;
+    --pastel-pink-color: #FBEAEB;
+
+    /* General Styles */
+    --arabic-font-family: 'Cairo', sans-serif;
+}
