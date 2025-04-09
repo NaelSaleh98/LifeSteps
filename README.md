@@ -7,29 +7,29 @@
 ## :briefcase: Features
 
 - :repeat: **Three Organized Tabs:**
-	- **الخطبة** (Engagement)
-	- **تجهيزات المنزل** (Home Preparations)
-	- **الزواج** (Wedding)
+	- **Engagement** (الخطبة)
+	- **Home Preparation** (تجهيزات المنزل)
+	- **Marriage** (الزواج)
 
 - :capital_abcd: **Expenses Table in Each Tab** with:
-	- الاسم (Name)
-	- الوصف (Description)
-	- السعر (Price)
-	- العملة (Currency)
-	- الحالة (Status)
-	- حذف/قفل (Delete/Lock)
+	- Name (اسم)
+	- Description (وصف)
+	- Price (سعر)
+	- Currency (عملة)
+	- Status (حالة)
+	- Delete/Lock (حذف/قفل)
 
 - :heavy_plus_sign: **User Controls:**
-	- اضافة صف (Add Row)
-	- حفظ (Save)
-	- حذف (Delete)
+	- Add Row (إضافة صف)
+	- Save (حفظ)
+	- Delete (حذف)
 
 - :closed_lock_with_key: Data persistence using **Local Storage**
 
 - :page_facing_up: **Footer** with:
-	- سياسة الخصوصية (Privacy Policy)
-	- شروط الاستخدام (Terms of Use)
-	- اتصل بنا (Contact Us)
+	- Privacy Policy (سياسة الخصوصية)
+	- Terms of Use (شروط الاستخدام)
+	- Contact Us (اتصل بنا)
 
 --------------
 
