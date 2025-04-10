@@ -1,12 +1,46 @@
-﻿html, body {
-    height: 100%;
-    margin: 0;
-}
+﻿@import './variables.css';
 
+/* General Body Style */
 body {
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: 'Cairo', sans-serif !important;
+    font-family: var(--arabic-font-family) !important;
+}
+
+/* Header and Nav style */
+header {
+    background-color: var(--blue-color);
+    box-shadow: 0 2px 4px var(--blue-color);
+}
+
+.nav-link {
+    color: var(--pastel-pink-color) !important;
+    font-size: large !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-link.active {
+    color: var(--pastel-pink-color) !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid var(--pastel-pink-color) !important;
+}
+
+.navbar-toggler {
+    background-color: var(--pastel-pink-color) !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}
+
+img[loading="lazy"] {
+    filter: blur(5px);
+    transition: filter 0.3s ease-in-out;
+}
+
+img[loading="lazy"]:not([src=""]) {
+    filter: none;
 }
 
 main {
