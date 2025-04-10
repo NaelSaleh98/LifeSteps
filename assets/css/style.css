@@ -1,6 +1,10 @@
 ﻿@import './variables.css';
 
 /* General Body Style */
+html {
+    overflow-y: scroll;
+}
+
 body {
     height: 100vh;
     display: flex;
@@ -17,13 +21,14 @@ header {
 .nav-link {
     color: var(--pastel-pink-color) !important;
     font-size: large !important;
+    padding-bottom: 2px !important;
     transition: all 0.3s ease-in-out;
 }
 
 .nav-link.active {
     color: var(--pastel-pink-color) !important;
-    font-weight: bold !important;
     border-bottom: 2px solid var(--pastel-pink-color) !important;
+    padding-bottom: 0 !important;
 }
 
 .navbar-toggler {
