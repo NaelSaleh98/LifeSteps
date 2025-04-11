@@ -19,7 +19,7 @@
             <nav class="navbar navbar-expand-lg">
               <div class="container-fluid">
                 <a class="navbar-brand" href="${this.basePath}/index.html" aria-label="Main">
-                  <img src="${this.basePath}/assets/images/logo-24.png" alt="logo" width="30" height="24" loading="lazy" />
+                  <img src="${this.basePath}/assets/images/logo-24.png" alt="logo" width="24" height="24" loading="lazy" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                   data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
