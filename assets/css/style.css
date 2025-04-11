@@ -1,15 +1,35 @@
 ﻿@import './variables.css';
 
 /* General Body Style */
-html {
-    overflow-y: scroll;
+html, body {
+    direction: rtl;
+    height: 100%;
+    overflow: hidden;
 }
 
 body {
-    height: 100vh;
     display: flex;
     flex-direction: column;
     font-family: var(--arabic-font-family) !important;
+}
+
+/* For WebKit-based browsers */
+*::-webkit-scrollbar {
+    width: 1px; /* Width of the scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+    background-color: #ffffff; /* Background of the scrollbar track */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--blue-color); /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+* {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: var(--blue-color) #ffffff; /* Thumb color and track color */
 }
 
 /* Header and Nav style */
@@ -50,6 +70,7 @@ img[loading="lazy"]:not([src=""]) {
 
 main {
     flex: 1;
+    overflow-y: auto;
 }
 
 footer {

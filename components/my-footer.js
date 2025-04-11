@@ -4,7 +4,7 @@
         const base = isInPages ? '..' : '.';
 
         this.innerHTML = `
-      <footer class="bg-primary text-white text-center py-3 mt-5">
+      <footer class="bg-primary text-white text-center py-3">
         <div class="container">
           <p>&copy; 2025 رحلة الزواج. جميع الحقوق محفوظة.</p>
           <ul class="list-inline">
