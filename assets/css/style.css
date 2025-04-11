@@ -13,6 +13,15 @@ body {
     font-family: var(--arabic-font-family) !important;
 }
 
+img[loading="lazy"] {
+    filter: blur(5px);
+    transition: filter 0.3s ease-in-out;
+}
+
+img[loading="lazy"]:not([src=""]) {
+    filter: none;
+}
+
 /* For WebKit-based browsers */
 *::-webkit-scrollbar {
     width: 1px; /* Width of the scrollbar */
@@ -38,45 +47,43 @@ header {
     box-shadow: 0 2px 4px var(--blue-color);
 }
 
-.nav-link {
+header .nav-link {
     color: var(--pastel-pink-color) !important;
     font-size: large !important;
     padding-bottom: 2px !important;
     transition: all 0.3s ease-in-out;
 }
 
-.nav-link.active {
+header .nav-link.active {
     color: var(--pastel-pink-color) !important;
     border-bottom: 2px solid var(--pastel-pink-color) !important;
     padding-bottom: 0 !important;
 }
 
-.navbar-toggler {
+header .navbar-toggler {
     background-color: var(--pastel-pink-color) !important;
 }
 
-.navbar-toggler:focus {
+header .navbar-toggler:focus {
     box-shadow: none !important;
 }
 
-img[loading="lazy"] {
-    filter: blur(5px);
-    transition: filter 0.3s ease-in-out;
+/* Footer */
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--blue-color);
+    box-shadow: 0 -2px 4px var(--blue-color);
 }
 
-img[loading="lazy"]:not([src=""]) {
-    filter: none;
+footer .nav-link {
+    color: var(--pastel-pink-color) !important;
 }
 
 main {
     flex: 1;
     overflow-y: auto;
-}
-
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
 }
 
 /*Table*/
