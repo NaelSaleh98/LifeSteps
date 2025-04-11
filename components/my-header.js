@@ -35,6 +35,16 @@
             </nav>
           </header>
         `;
+
+        const navbarBrand = this.querySelector('.navbar-brand');
+        if (navbarBrand) {
+            navbarBrand.addEventListener('click', event => {
+                const currentPage = location.pathname.split('/').pop();
+                if (currentPage === 'index.html' || currentPage === '') {
+                    event.preventDefault();
+                }
+            });
+        }
     }
 
     getNavLinks() {

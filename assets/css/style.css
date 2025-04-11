@@ -86,6 +86,22 @@ main {
     overflow-y: auto;
 }
 
+.blue-color {
+    color: var(--blue-color) !important;
+}
+
+.pink-color {
+    color: var(--pastel-pink-color) !important;
+}
+
+.blue-bg-color {
+    background-color: var(--blue-color) !important;
+}
+
+.pink-bg-color {
+    background-color: var(--pastel-pink-color) !important;
+}
+
 /*Table*/
 .table-input {
     min-width: 200px;
