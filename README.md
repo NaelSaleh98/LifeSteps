@@ -81,7 +81,7 @@ marriage-journey/
 │   ├── my-footer.js			# Footer component
 │   └── my-header.js			# Header component
 ├── pages/						# HTML pages
-│   ├── contact.html			# Contact page
+│   ├── about-us.html			# About Us page
 │   ├── engagement.html			# Engagement section page
 │   ├── home.html				# Home section page
 │   ├── marriage.html			# Marriage section page

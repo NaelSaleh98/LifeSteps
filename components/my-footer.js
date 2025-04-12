@@ -24,7 +24,7 @@
                   <a href="${this.basePath}/pages/terms.html" class="nav-link px-2">شروط الاستخدام</a>
                 </li>
                 <li class="nav-item">
-                  <a href="${this.basePath}/pages/contact.html" class="nav-link px-2">اتصل بنا</a>
+                  <a href="${this.basePath}/pages/about-us.html" class="nav-link px-2">من نحن</a>
                 </li>
               </ul>
           </footer>
